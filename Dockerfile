@@ -1,5 +1,5 @@
 # Usa a imagem Node como base
-FROM node:18.17.0
+FROM node:18-alpine
 
 # Cria a pasta /backend dentro do contêiner
 WORKDIR /backend
