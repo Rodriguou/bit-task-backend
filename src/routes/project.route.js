@@ -14,6 +14,9 @@ router.post('/', projectController.criar);
 // Rota para leitura de todos os projetos - READ
 router.get('/', projectController.pegarTodos);
 
+// Rota para leitura de todas as tarefas de todos os projetos do usuário - READ
+router.get('/tarefas', projectController.todasTarefas);
+
 // Rota para leitura de todas as tarefas com prioridade alta iterando sobre os projetos - READ
 router.get('/tarefas/prioridade', projectController.tarefasPrioridade);
 
