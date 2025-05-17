@@ -14,10 +14,9 @@ const taskSchema = new Schema({
         required: true
     },
     status: {
-        type: String,
+        type: Boolean,
         required: true,
-        enum: ['a fazer', 'em progresso', 'concluída'],
-        default: 'a fazer'
+        default: false // Define o status padrão como não concluído
     },
     prioridade: {
         type: String,
