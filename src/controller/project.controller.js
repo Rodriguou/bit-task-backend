@@ -49,6 +49,27 @@ const pegarTodos = async (req, res) => {
   }
 };
 
+// Obtém todas as tarefas de todos os projetos do usuário
+const todasTarefas = async (req, res) => {
+  const usuarioId = req.user._id;
+  if (!usuarioId) {
+    return res.status(401).send('Não autorizado');
+  }
+
+  try {
+    // Busca todos os projetos do usuário
+    const projetos = await Project.find({ usuario: usuarioId });
+    const projetosIds = projetos.map(projeto => projeto._id);
+
+    // Busca todas as tarefas desses projetos
+    const tarefas = await Task.find({ projeto: { $in: projetosIds } });
+
+    res.send(tarefas);
+  } catch (error) {
+    res.status(500).send({ message: "Erro ao buscar tarefas dos projetos do usuário.", error: error.message });
+  }
+};
+
 // Obtém todas as tarefas de alta prioridade dos projetos do usuário
 const tarefasPrioridade = async (req, res) => {
   const usuarioId = req.user._id;
@@ -151,4 +172,4 @@ const remover = async (req, res) => {
   }
 };
 
-export default { criar, pegarTodos, tarefasPrioridade, pegarUnico, atualizar, remover };
+export default { criar, pegarTodos, todasTarefas, tarefasPrioridade, pegarUnico, atualizar, remover };
