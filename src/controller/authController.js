@@ -1,5 +1,6 @@
 import User from "../model/userModel.js";
 import { compare } from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const logar = async (req, res) => {
     try {
@@ -27,4 +28,31 @@ const logar = async (req, res) => {
     }
 };
 
-export default { logar };
+const logout = async (req, res) => {
+    try {
+        // Obtém o token do header
+        const token = req.header("Authorization")?.replace("Bearer ", "");
+        if (!token) {
+            return res.status(401).send({ message: "Token não fornecido." });
+        }
+
+        // Decodifica o token para obter o ID do usuário
+        const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY);
+
+        // Remove o token da lista de tokens do usuário
+        const user = await User.findOneAndUpdate(
+            { _id: decoded._id, "tokens.token": token },
+            { $pull: { tokens: { token } } }
+        );
+
+        if (!user) {
+            return res.status(400).send({ message: "Token já foi removido ou usuário não encontrado." });
+        }
+
+        res.status(200).send({ message: "Logout realizado com sucesso!" });
+    } catch (error) {
+        res.status(500).send({ message: "Erro ao realizar logout.", error: error.message });
+    }
+};
+
+export default { logar, logout };
