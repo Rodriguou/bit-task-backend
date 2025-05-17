@@ -107,7 +107,7 @@ const tarefasConcluidas = async (req, res) => {
     }
 
     // Obtém todas as tarefas concluídas do projeto
-    const tarefas = await Task.find({ projeto: projetoId, status: 'concluída' });
+    const tarefas = await Task.find({ projeto: projetoId, status: true });
 
     res.send(tarefas);
   } catch (error) {
