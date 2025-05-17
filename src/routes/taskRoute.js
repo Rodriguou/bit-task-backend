@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import taskController from '../controller/task.controller.js';
+import taskController from '../controller/taskController.js';
 
 const router = Router({ mergeParams: true }); // Permite acessar parâmetros da rota pai
 

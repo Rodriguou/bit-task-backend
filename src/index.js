@@ -2,10 +2,10 @@ import 'dotenv/config';
 import conectarMongoDB from './database/mongoDBConnect.js';
 import express from 'express';
 import cors from 'cors';
-import userRoutes from './routes/user.route.js';
-import authRoutes from './routes/auth.route.js';
-import projectRoutes from './routes/project.route.js';
-import taskRoutes from './routes/task.route.js';
+import userRoutes from './routes/userRoute.js';
+import authRoutes from './routes/authRoute.js';
+import projectRoutes from './routes/projectRoute.js';
+import taskRoutes from './routes/taskRoute.js';
 
 // Criando uma instância do servidor Express
 const app = express();
